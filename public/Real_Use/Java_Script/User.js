@@ -1,11 +1,34 @@
 $(document).ready(function () {
   Function_Table_Usuario();
+  Function_Table_Usuario_Alternative();
 });
 
 var Table_Usuario;
 var Table_Usuario_Alternative;
 var Selected_Row;
 var ID_Usuario;
+
+// ? var Url_01 = "@Url.Action("Staff_Controller_Usuario_Listar_Alternative", "Staff")",
+var Url_01 =
+  "https://localhost:44381/Staff/Staff_Controller_Usuario_Listar_Alternative" +
+  "?Estado_Usuario=" +
+  true;
+
+// ? var Url_02 = "@Url.Action("Staff_Controller_Usuario_Listar_Alternative", "Staff")",
+var Url_02 =
+  "https://localhost:44381/Staff/Staff_Controller_Usuario_Listar_Alternative" +
+  "?Estado_Usuario=" +
+  false;
+
+function Show_User_Image(input) {
+  if (input.files) {
+    var Reader = new FileReader();
+    Reader.onload = function (event) {
+      $("#Imagen_Usuario").attr("src", event.target.result);
+    };
+    Reader.readAsDataURL(input.files[0]);
+  }
+}
 
 function Selected_Row_Function(data) {
   // ? Obtener la Fila Actual
@@ -20,9 +43,43 @@ function Selected_Row_Function(data) {
 
 function Function_Table_Usuario() {
   Table_Usuario = $("#Table_Usuario").DataTable({
+    responsive: true,
+    ordering: false,
+    language: {
+      url: "//cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json",
+    },
+    ajax: {
+      url: Url_01,
+      type: "GET",
+      dataType: "json",
+    },
+    columns: [
+      { data: "iD_Usuario" },
+      {
+        data: "estado_Usuario",
+        render: function (estado_Usuario) {
+          if (estado_Usuario) {
+            return '<span class="badge text-bg-success">Disponible</span>';
+          } else {
+            return '<span class="badge text-bg-danger">No Disponible</span>';
+          }
+        },
+      },
+      { data: "nombre_Usuario" },
+      { data: "apellido_Usuario" },
+      { data: "e_Mail_Usuario" },
+      {
+        defaultContent:
+          '<button type="button" class="btn btn-primary btn-sm Edit_Button"><i class="fa-solid fa-pencil"></i></button>' +
+          '<button type="button" class="btn btn-danger btn-sm ms-2 Delete_Button"><i class="fa-solid fa-trash"></i></i></button>',
+        orderable: false,
+        searchable: false,
+        width: "90px",
+      },
+    ],
   });
 }
-/*
+
 function Function_Table_Usuario_Alternative() {
   Table_Usuario_Alternative = $("#Table_Usuario_Alternative").DataTable({
     retrieve: true,
@@ -507,4 +564,4 @@ function Procesar() {
       }
     }
   }
-}*/
+}
