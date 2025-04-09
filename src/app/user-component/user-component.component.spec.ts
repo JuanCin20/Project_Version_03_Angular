@@ -1,0 +1,21 @@
+import { UserComponentComponent } from './user-component.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+describe('UserComponentComponent', () => {
+  let component: UserComponentComponent;
+  let fixture: ComponentFixture<UserComponentComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [UserComponentComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(UserComponentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

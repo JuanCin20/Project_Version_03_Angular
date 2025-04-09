@@ -1,0 +1,228 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa-solid fa-users fa-2xl"></i>&nbsp;&nbsp;Registered Users
+  </div>
+  <div class="card-body">
+    <div class="row align-items-end">
+      <div class="col-sm-2">
+        <div class="d-grid mb-2">
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#Form_01"
+          >
+            <i class="fa-solid fa-xmark"></i>&nbsp;&nbsp;Insert User
+          </button>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="d-grid mb-2">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#Form_02"
+          >
+            <i class="fa-regular fa-circle"></i>&nbsp;&nbsp;Deleted Users
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <table id="Table_Usuario" class="display cell-border" style="width: 100%">
+      <thead>
+        <tr>
+          <th>ID:</th>
+          <th>Role:</th>
+          <th>DNI:</th>
+          <th>E-Mail:</th>
+          <th>Password:</th>
+          <th>Name:</th>
+          <th>Last Name:</th>
+          <th>Phone:</th>
+          <th>Address:</th>
+          <th>Birth:</th>
+          <th>State:</th>
+          <th>Register:</th>
+          <th>Operation:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.userId }}</td>
+          <td>
+            <label *ngFor="let role of user.roleEntities">{{
+              role.enumRole
+            }}</label>
+          </td>
+          <td>{{ user.userDni }}</td>
+          <td>{{ user.userEmail }}</td>
+          <td>{{ user.userPassword }}</td>
+          <td>{{ user.userName }}</td>
+          <td>{{ user.userLastName }}</td>
+          <td>{{ user.userPhone }}</td>
+          <td>{{ user.userAddress }}</td>
+          <td>{{ user.userBirth }}</td>
+          <td>{{ user.userState }}</td>
+          <td>{{ user.userRegister }}</td>
+          <td>
+            <div class="d-flex flex-row justify-content-center gap-2">
+              <button class="btn-primary">
+                <i class="fa-solid fa-pencil"></i></button
+              ><button class="btn-danger">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Vertically Centered Modal -->
+<div
+  class="modal fade"
+  id="Form_01"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Users</h1>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form
+        (ngSubmit)="onSubmit()"
+        id="Form_User"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <label for="userDni" class="form-label">DNI:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="userDni"
+                [(ngModel)]="user.userDni"
+                name="userDni"
+                placeholder="87654321"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-6">
+              <label for="userEmail" class="form-label">E-Mail:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userEmail"
+                [(ngModel)]="user.userEmail"
+                name="userEmail"
+                placeholder="email@gmail.com"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-12">
+              <label for="userPassword" class="form-label">Password:</label>
+              <input
+                type="password"
+                class="form-control"
+                id="userPassword"
+                [(ngModel)]="user.userPassword"
+                name="userPassword"
+                placeholder="*****"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-12">
+              <label for="userName" class="form-label">Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userName"
+                [(ngModel)]="user.userName"
+                name="userName"
+                placeholder="John"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-12">
+              <label for="userLastName" class="form-label">Last Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userLastName"
+                [(ngModel)]="user.userLastName"
+                name="userLastName"
+                placeholder="Carl"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-12">
+              <label for="userPhone" class="form-label">Phone:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="userPhone"
+                [(ngModel)]="user.userPhone"
+                name="userPhone"
+                placeholder="987654321"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-12">
+              <label for="userAddress" class="form-label">Address:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userAddress"
+                [(ngModel)]="user.userAddress"
+                name="userAddress"
+                placeholder="Address"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-12">
+              <label for="userBirth" class="form-label">Birth:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userBirth"
+                [(ngModel)]="user.userBirth"
+                name="userBirth"
+                placeholder="08/06/2004"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cerrar
+          </button>
+          <!-- <button type="submit" class="btn btn-primary" onclick="Procesar()">
+            Procesar
+          </button> -->
+          <button type="submit" class="btn btn-primary">Procesar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
