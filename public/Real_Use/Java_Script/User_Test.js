@@ -1,7 +1,16 @@
-$(document).ready(function () {
+var Callback = function () {
   Function_User_Table();
   Function_User_Table_Alternative();
-});
+};
+
+if (
+  document.readyState === "complete" ||
+  (document.readyState !== "loading" && !document.documentElement.doScroll)
+) {
+  Callback();
+} else {
+  document.addEventListener("DOMContentLoaded", Callback);
+}
 
 var User_Table;
 var Url_01 = "http://localhost:8080/api/rest/user/all";
