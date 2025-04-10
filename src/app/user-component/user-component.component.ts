@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import { UserService } from '../user-service.service';
-
 @Component({
   selector: 'app-user-component',
   standalone: false,
@@ -16,7 +15,7 @@ export class UserComponentComponent implements OnInit {
   // constructor() {}
 
   ngOnInit(): void {
-    this.getUsers();
+    // this.getUsers();
     /* this.users = [
       {
         userId: 1,
