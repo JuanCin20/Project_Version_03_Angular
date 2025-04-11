@@ -12,32 +12,20 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getUsersList(): Observable<User[]> {
+  /* private getUsersList(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.baseURL}` + '/all');
-  }
+  } */
 
-  getRolesList(): Observable<Role[]> {
+  public getRolesList(): Observable<Role[]> {
     return this.httpClient.get<Role[]>(`${this.baseURL}` + '/allRoleEntities');
   }
 
-  getCurrentDate(): string {
+  private getCurrentDate(): string {
     const userRegister = new Date();
     return userRegister.toLocaleDateString('en-GB');
   }
 
-  createUser(user: User): Observable<Object> {
-    /* user.roleEntities = [
-      {
-        roleId: 1,
-        enumRole: 'Developer',
-        roleRegister: '06/04/2025',
-      },
-      {
-        roleId: 2,
-        enumRole: 'Administrator',
-        roleRegister: '06/04/2025',
-      },
-    ]; */
+  public createUser(user: User): Observable<Object> {
     user.userState = true;
     user.userRegister = this.getCurrentDate();
     user.userNotAccountExpired = true;
