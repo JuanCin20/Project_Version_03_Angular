@@ -111,10 +111,10 @@
         ></button>
       </div>
       <form
+        [formGroup]="Form_User"
         (ngSubmit)="onSubmit()"
         id="Form_User"
         class="needs-validation"
-        ngNativeValidate
         novalidate
       >
         <div class="modal-body">
@@ -132,8 +132,9 @@
               <select
                 class="form-select"
                 id="roleEntities"
-                name="roleEntities"
                 [(ngModel)]="Alternative_roleId"
+                name="roleEntities"
+                [ngModelOptions]="{ standalone: true }"
               >
                 <option [disabled]="true" [selected]="true" value="0">
                   Select
@@ -155,6 +156,7 @@
                 name="userDni"
                 placeholder="DNI"
                 autocomplete="off"
+                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-12">
@@ -169,6 +171,7 @@
                 name="userEmail"
                 placeholder="E-Mail"
                 autocomplete="off"
+                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-12">
@@ -183,6 +186,7 @@
                 name="userPassword"
                 placeholder="Password"
                 autocomplete="off"
+                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-6">
@@ -197,6 +201,7 @@
                 name="userName"
                 placeholder="Name"
                 autocomplete="off"
+                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-6">
@@ -211,6 +216,7 @@
                 name="userLastName"
                 placeholder="Last Name"
                 autocomplete="off"
+                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-6">
@@ -225,6 +231,7 @@
                 name="userPhone"
                 placeholder="Phone"
                 autocomplete="off"
+                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-6">
@@ -239,6 +246,7 @@
                 name="userAddress"
                 placeholder="Address"
                 autocomplete="off"
+                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-12">
@@ -253,6 +261,7 @@
                 name="userBirth"
                 placeholder="Birth"
                 autocomplete="off"
+                [ngModelOptions]="{ standalone: true }"
               />
             </div>
           </div>
