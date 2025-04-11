@@ -33,127 +33,6 @@ $(function () {
       }
     });
   });
-  $("#Form_User").validate({
-    rules: {
-      roleEntities: {
-        required: true,
-      },
-      userDni: {
-        required: true,
-        number: true,
-        Valid_userDni: true,
-        digits: true,
-        minlength: 8,
-        maxlength: 8,
-      },
-      userEmail: {
-        required: true,
-        Valid_userEmail: true,
-        maxlength: 50,
-      },
-      userPassword: {
-        required: true,
-        Valid_userPassword: true,
-        maxlength: 50,
-      },
-      userName: {
-        required: true,
-        Valid_userName: true,
-        maxlength: 50,
-      },
-      userLastName: {
-        required: true,
-        Valid_userLastName: true,
-        maxlength: 50,
-      },
-      userPhone: {
-        required: true,
-        number: true,
-        Valid_userPhone: true,
-        digits: true,
-        minlength: 9,
-        maxlength: 9,
-      },
-      userAddress: {
-        required: true,
-        Valid_userAddress: true,
-        maxlength: 50,
-      },
-      userBirth: {
-        required: true,
-        Valid_userBirth: true,
-        maxlength: 10,
-      },
-    },
-    messages: {
-      roleEntities: {
-        required: "Required: roleEntities",
-      },
-      userDni: {
-        required: "Required: userDni",
-        number: "Number: userDni",
-        Valid_userDni: "Valid: Valid_userDni",
-        digits: "Digits: userDni",
-        minlength: "Min Length: userDni",
-        maxlength: "Max Length: userDni",
-      },
-      userEmail: {
-        required: "Required: userEmail",
-        Valid_userEmail: "Valid: userEmail",
-        maxlength: "Max Length: userEmail",
-      },
-      userPassword: {
-        required: "Required: userPassword",
-        Valid_userPassword: "Valid: userPassword",
-        maxlength: "Max Length: userPassword",
-      },
-      userName: {
-        required: "Required: userName",
-        Valid_userName: "Valid: userName",
-        maxlength: "Max Length: userName",
-      },
-      userLastName: {
-        required: "Required: userLastName",
-        Valid_userLastName: "Valid: userLastName",
-        maxlength: "Max Length: userLastName",
-      },
-      userPhone: {
-        required: "Required: userPhone",
-        number: "Number: userPhone",
-        Valid_userPhone: "Valid: userPhone",
-        digits: "Digits: userPhone",
-        minlength: "Min Length: userPhone",
-        maxlength: "Max Length: userPhone",
-      },
-      userAddress: {
-        required: "Required: userAddress",
-        Valid_userAddress: "Valid: userAddress",
-        maxlength: "Max Length: userAddress",
-      },
-      userBirth: {
-        required: "Required: userBirth",
-        Valid_userBirth: "Valid: userBirth",
-        maxlength: "Max Length: userBirth",
-      },
-    },
-    errorElement: "em",
-    errorPlacement: function (error, element) {
-      // Add the "invalid-feedback" class to the error element
-      error.addClass("invalid-feedback");
-
-      if (element.prop("type") === "checkbox") {
-        error.insertAfter(element.next("label"));
-      } else {
-        error.insertAfter(element);
-      }
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass("is-invalid").removeClass("is-valid");
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).addClass("is-valid").removeClass("is-invalid");
-    },
-  });
 });
 
 var User_Table = null;
@@ -388,6 +267,130 @@ jQuery.validator.addMethod("Valid_userBirth", function (value, element) {
       value
     )
   );
+});
+
+$(function () {
+  $("#Form_User").validate({
+    rules: {
+      roleEntities: {
+        required: true,
+      },
+      userDni: {
+        required: true,
+        number: true,
+        Valid_userDni: true,
+        digits: true,
+        minlength: 8,
+        maxlength: 8,
+      },
+      userEmail: {
+        required: true,
+        Valid_userEmail: true,
+        maxlength: 50,
+      },
+      userPassword: {
+        required: true,
+        Valid_userPassword: true,
+        maxlength: 50,
+      },
+      userName: {
+        required: true,
+        Valid_userName: true,
+        maxlength: 50,
+      },
+      userLastName: {
+        required: true,
+        Valid_userLastName: true,
+        maxlength: 50,
+      },
+      userPhone: {
+        required: true,
+        number: true,
+        Valid_userPhone: true,
+        digits: true,
+        minlength: 9,
+        maxlength: 9,
+      },
+      userAddress: {
+        required: true,
+        Valid_userAddress: true,
+        maxlength: 50,
+      },
+      userBirth: {
+        required: true,
+        Valid_userBirth: true,
+        maxlength: 10,
+      },
+    },
+    messages: {
+      roleEntities: {
+        required: "Required: roleEntities",
+      },
+      userDni: {
+        required: "Required: userDni",
+        number: "Number: userDni",
+        Valid_userDni: "Valid: Valid_userDni",
+        digits: "Digits: userDni",
+        minlength: "Min Length: userDni",
+        maxlength: "Max Length: userDni",
+      },
+      userEmail: {
+        required: "Required: userEmail",
+        Valid_userEmail: "Valid: userEmail",
+        maxlength: "Max Length: userEmail",
+      },
+      userPassword: {
+        required: "Required: userPassword",
+        Valid_userPassword: "Valid: userPassword",
+        maxlength: "Max Length: userPassword",
+      },
+      userName: {
+        required: "Required: userName",
+        Valid_userName: "Valid: userName",
+        maxlength: "Max Length: userName",
+      },
+      userLastName: {
+        required: "Required: userLastName",
+        Valid_userLastName: "Valid: userLastName",
+        maxlength: "Max Length: userLastName",
+      },
+      userPhone: {
+        required: "Required: userPhone",
+        number: "Number: userPhone",
+        Valid_userPhone: "Valid: userPhone",
+        digits: "Digits: userPhone",
+        minlength: "Min Length: userPhone",
+        maxlength: "Max Length: userPhone",
+      },
+      userAddress: {
+        required: "Required: userAddress",
+        Valid_userAddress: "Valid: userAddress",
+        maxlength: "Max Length: userAddress",
+      },
+      userBirth: {
+        required: "Required: userBirth",
+        Valid_userBirth: "Valid: userBirth",
+        maxlength: "Max Length: userBirth",
+      },
+    },
+    errorElement: "em",
+    errorPlacement: function (error, element) {
+      // Add the "invalid-feedback" class to the error element
+      error.addClass("invalid-feedback");
+
+      if (element.prop("type") === "checkbox") {
+        error.insertAfter(element.next("label"));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    },
+  });
 });
 
 $.validator.setDefaults({

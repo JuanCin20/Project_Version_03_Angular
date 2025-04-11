@@ -72,7 +72,7 @@ export class UserComponentComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
+    // debugger;
     const Alternative_Role_Array: Role[] = [];
     for (let i = 0; i < this.roles.length; i++) {
       if (this.Alternative_roleId == this.roles[i].roleId) {
