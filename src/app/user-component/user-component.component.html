@@ -44,7 +44,6 @@
           <th>Role:</th>
           <th>DNI:</th>
           <th>E-Mail:</th>
-          <th>Password:</th>
           <th>Name:</th>
           <th>Last Name:</th>
           <th>Phone:</th>
@@ -65,7 +64,6 @@
           </td>
           <td>{{ user.userDni }}</td>
           <td>{{ user.userEmail }}</td>
-          <td>{{ user.userPassword }}</td>
           <td>{{ user.userName }}</td>
           <td>{{ user.userLastName }}</td>
           <td>{{ user.userPhone }}</td>
@@ -170,21 +168,6 @@
                 [(ngModel)]="user.userEmail"
                 name="userEmail"
                 placeholder="E-Mail"
-                autocomplete="off"
-                [ngModelOptions]="{ standalone: true }"
-              />
-            </div>
-            <div class="col-sm-12">
-              <label for="userPassword" class="form-label"
-                ><i class="fa-solid fa-square-minus"></i>&nbsp;Password:</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                id="userPassword"
-                [(ngModel)]="user.userPassword"
-                name="userPassword"
-                placeholder="Password"
                 autocomplete="off"
                 [ngModelOptions]="{ standalone: true }"
               />

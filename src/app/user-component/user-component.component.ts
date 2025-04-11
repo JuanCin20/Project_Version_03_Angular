@@ -24,7 +24,7 @@ export class UserComponentComponent implements OnInit {
     this.Form_User = new FormGroup({
       userDni: new FormControl('', Validators.required),
       userEmail: new FormControl('', Validators.required),
-      userPassword: new FormControl('', Validators.required),
+      // ? userPassword: new FormControl('', Validators.required),
       userName: new FormControl('', Validators.required),
       userLastName: new FormControl('', Validators.required),
       userPhone: new FormControl('', Validators.required),
@@ -60,8 +60,7 @@ export class UserComponentComponent implements OnInit {
     this.Form_User.setValue({
       userDni: this.user.userDni == undefined ? 0 : this.user.userDni,
       userEmail: this.user.userEmail == undefined ? '' : this.user.userEmail,
-      userPassword:
-        this.user.userPassword == undefined ? '' : this.user.userPassword,
+      // ? userPassword: this.user.userPassword == undefined ? '' : this.user.userPassword,
       userName: this.user.userName == undefined ? '' : this.user.userName,
       userLastName:
         this.user.userLastName == undefined ? '' : this.user.userLastName,

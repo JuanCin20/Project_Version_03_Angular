@@ -81,7 +81,6 @@ function Function_User_Table_02() {
       },
       { data: "userDni" },
       { data: "userEmail" },
-      { data: "userPassword" },
       { data: "userName" },
       { data: "userLastName" },
       { data: "userPhone" },
@@ -128,8 +127,6 @@ function Open_Modal_Form(data) {
     $("#userDni").removeClass("is-invalid");
     $("#userEmail").removeClass("is-valid");
     $("#userEmail").removeClass("is-invalid");
-    $("#userPassword").removeClass("is-valid");
-    $("#userPassword").removeClass("is-invalid");
     $("#userName").removeClass("is-valid");
     $("#userName").removeClass("is-invalid");
     $("#userLastName").removeClass("is-valid");
@@ -144,7 +141,6 @@ function Open_Modal_Form(data) {
     $("#roleId").val(0);
     $("#userDni").val("");
     $("#userEmail").val("");
-    $("#userPassword").val("");
     $("#userName").val("");
     $("#userLastName").val("");
     $("#userPhone").val("");
@@ -160,8 +156,6 @@ function Open_Modal_Form(data) {
       $("#userDni").removeClass("is-invalid");
       $("#userEmail").removeClass("is-valid");
       $("#userEmail").removeClass("is-invalid");
-      $("#userPassword").removeClass("is-valid");
-      $("#userPassword").removeClass("is-invalid");
       $("#userName").removeClass("is-valid");
       $("#userName").removeClass("is-invalid");
       $("#userLastName").removeClass("is-valid");
@@ -176,7 +170,6 @@ function Open_Modal_Form(data) {
       $("#roleId").val(data.roleEntities[0].roleId);
       $("#userDni").val(data.userDni);
       $("#userEmail").val(data.userEmail);
-      $("#userPassword").val(data.userPassword);
       $("#userName").val(data.userName);
       $("#userLastName").val(data.userLastName);
       $("#userPhone").val(data.userPhone);
@@ -222,14 +215,14 @@ jQuery.validator.addMethod("Valid_userEmail", function (value, element) {
   );
 });
 
-jQuery.validator.addMethod("Valid_userPassword", function (value, element) {
+/* jQuery.validator.addMethod("Valid_userPassword", function (value, element) {
   return (
     this.optional(element) ||
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/.test(
       value
     )
   );
-});
+}); */
 
 jQuery.validator.addMethod("Valid_userName", function (value, element) {
   return (
@@ -288,11 +281,11 @@ $(function () {
         Valid_userEmail: true,
         maxlength: 50,
       },
-      userPassword: {
+      /* userPassword: {
         required: true,
         Valid_userPassword: true,
         maxlength: 50,
-      },
+      }, */
       userName: {
         required: true,
         Valid_userName: true,
@@ -339,11 +332,11 @@ $(function () {
         Valid_userEmail: "Valid: userEmail",
         maxlength: "Max Length: userEmail",
       },
-      userPassword: {
+      /* userPassword: {
         required: "Required: userPassword",
         Valid_userPassword: "Valid: userPassword",
         maxlength: "Max Length: userPassword",
-      },
+      }, */
       userName: {
         required: "Required: userName",
         Valid_userName: "Valid: userName",
