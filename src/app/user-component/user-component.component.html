@@ -6,11 +6,16 @@
     <div class="row align-items-end">
       <div class="col-sm-2">
         <div class="d-grid mb-2">
-          <button
+          <!-- <button
             type="button"
             class="btn btn-success"
             data-bs-toggle="modal"
             data-bs-target="#Form_01"
+          > -->
+          <button
+            type="button"
+            class="btn btn-success"
+            onclick="Open_Modal_Form(null)"
           >
             <i class="fa-solid fa-xmark"></i>&nbsp;Insert User
           </button>
@@ -95,7 +100,9 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-dark text-white">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Users</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Registration Form
+        </h1>
         <button
           type="button"
           class="btn-close btn-close-white"
@@ -112,79 +119,117 @@
         <div class="modal-body">
           <div class="row g-2">
             <div class="col-sm-6">
-              <label for="userDni" class="form-label">DNI:</label>
+              <label for="roleEntities" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;Role:</label
+              >
+              <!-- <select
+                class="form-select"
+                id="roleEntities"
+                name="roleEntities"
+                aria-label="Default select example"
+              ></select> -->
+              <select
+                class="form-select"
+                id="roleEntities"
+                name="roleEntities"
+                [(ngModel)]="Alternative_roleId"
+              >
+                <option [disabled]="true" [selected]="true" value="0">
+                  Select
+                </option>
+                <option *ngFor="let role of roles" value="{{ role.roleId }}">
+                  {{ role.enumRole }}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="userDni" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;DNI:</label
+              >
               <input
                 type="number"
                 class="form-control"
                 id="userDni"
                 [(ngModel)]="user.userDni"
                 name="userDni"
-                placeholder="87654321"
-                autocomplete="off"
-              />
-            </div>
-            <div class="col-sm-6">
-              <label for="userEmail" class="form-label">E-Mail:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="userEmail"
-                [(ngModel)]="user.userEmail"
-                name="userEmail"
-                placeholder="email@gmail.com"
+                placeholder="DNI"
                 autocomplete="off"
               />
             </div>
             <div class="col-sm-12">
-              <label for="userPassword" class="form-label">Password:</label>
+              <label for="userEmail" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;E-Mail:</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="userEmail"
+                [(ngModel)]="user.userEmail"
+                name="userEmail"
+                placeholder="E-Mail"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-sm-12">
+              <label for="userPassword" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;Password:</label
+              >
               <input
                 type="password"
                 class="form-control"
                 id="userPassword"
                 [(ngModel)]="user.userPassword"
                 name="userPassword"
-                placeholder="*****"
+                placeholder="Password"
                 autocomplete="off"
               />
             </div>
-            <div class="col-sm-12">
-              <label for="userName" class="form-label">Name:</label>
+            <div class="col-sm-6">
+              <label for="userName" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;Name:</label
+              >
               <input
                 type="text"
                 class="form-control"
                 id="userName"
                 [(ngModel)]="user.userName"
                 name="userName"
-                placeholder="John"
+                placeholder="Name"
                 autocomplete="off"
               />
             </div>
-            <div class="col-sm-12">
-              <label for="userLastName" class="form-label">Last Name:</label>
+            <div class="col-sm-6">
+              <label for="userLastName" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;Last Name:</label
+              >
               <input
                 type="text"
                 class="form-control"
                 id="userLastName"
                 [(ngModel)]="user.userLastName"
                 name="userLastName"
-                placeholder="Carl"
+                placeholder="Last Name"
                 autocomplete="off"
               />
             </div>
-            <div class="col-sm-12">
-              <label for="userPhone" class="form-label">Phone:</label>
+            <div class="col-sm-6">
+              <label for="userPhone" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;Phone:</label
+              >
               <input
                 type="number"
                 class="form-control"
                 id="userPhone"
                 [(ngModel)]="user.userPhone"
                 name="userPhone"
-                placeholder="987654321"
+                placeholder="Phone"
                 autocomplete="off"
               />
             </div>
-            <div class="col-sm-12">
-              <label for="userAddress" class="form-label">Address:</label>
+            <div class="col-sm-6">
+              <label for="userAddress" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;Address:</label
+              >
               <input
                 type="text"
                 class="form-control"
@@ -196,14 +241,16 @@
               />
             </div>
             <div class="col-sm-12">
-              <label for="userBirth" class="form-label">Birth:</label>
+              <label for="userBirth" class="form-label"
+                ><i class="fa-solid fa-square-minus"></i>&nbsp;Birth:</label
+              >
               <input
                 type="text"
                 class="form-control"
                 id="userBirth"
                 [(ngModel)]="user.userBirth"
                 name="userBirth"
-                placeholder="08/06/2004"
+                placeholder="Birth"
                 autocomplete="off"
               />
             </div>

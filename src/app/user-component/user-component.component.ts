@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
+import { Role } from '../role';
 import { UserService } from '../user-service.service';
+
 @Component({
   selector: 'app-user-component',
   standalone: false,
@@ -9,6 +11,8 @@ import { UserService } from '../user-service.service';
 })
 export class UserComponentComponent implements OnInit {
   users: User[];
+  roles: Role[];
+  Alternative_roleId: number;
   user: User = new User();
   constructor(private userService: UserService) {}
 
@@ -41,11 +45,19 @@ export class UserComponentComponent implements OnInit {
         userCredentialNotExpired: true,
       },
     ]; */
+    this.getRoles();
   }
 
   private getUsers() {
     this.userService.getUsersList().subscribe((data) => {
       this.users = data;
+      console.log(data);
+    });
+  }
+
+  private getRoles() {
+    this.userService.getRolesList().subscribe((data) => {
+      this.roles = data;
       console.log(data);
     });
   }
@@ -60,6 +72,14 @@ export class UserComponentComponent implements OnInit {
   }
 
   onSubmit() {
+    debugger;
+    const Alternative_Role_Array: Role[] = [];
+    for (let i = 0; i < this.roles.length; i++) {
+      if (this.Alternative_roleId == this.roles[i].roleId) {
+        Alternative_Role_Array.push(this.roles[i]);
+      }
+    }
+    this.user.roleEntities = Alternative_Role_Array;
     console.log(this.user);
     this.saveUser();
   }

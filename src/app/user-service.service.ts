@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user';
+import { Role } from './role';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +16,17 @@ export class UserService {
     return this.httpClient.get<User[]>(`${this.baseURL}` + '/all');
   }
 
+  getRolesList(): Observable<Role[]> {
+    return this.httpClient.get<Role[]>(`${this.baseURL}` + '/allRoleEntities');
+  }
+
+  getCurrentDate(): string {
+    const userRegister = new Date();
+    return userRegister.toLocaleDateString('en-GB');
+  }
+
   createUser(user: User): Observable<Object> {
-    user.roleEntities = [
+    /* user.roleEntities = [
       {
         roleId: 1,
         enumRole: 'Developer',
@@ -27,10 +37,9 @@ export class UserService {
         enumRole: 'Administrator',
         roleRegister: '06/04/2025',
       },
-    ];
-    user.userBirth = '08/06/2004';
+    ]; */
     user.userState = true;
-    user.userRegister = '06/04/2025';
+    user.userRegister = this.getCurrentDate();
     user.userNotAccountExpired = true;
     user.userNotAccountBlocked = true;
     user.userCredentialNotExpired = true;
