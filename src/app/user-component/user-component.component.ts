@@ -13,7 +13,7 @@ import { UserService } from '../user-service.service';
 export class UserComponentComponent implements OnInit {
   users: User[];
   roles: Role[];
-  Alternative_roleId: number;
+  roleId: number;
   user: User = new User();
   Form_User: FormGroup;
   constructor(private userService: UserService) {}
@@ -63,36 +63,33 @@ export class UserComponentComponent implements OnInit {
   private getUsers() {
     this.userService.getUsersList().subscribe((data) => {
       this.users = data;
-      console.log(data);
+      console.log(data); // ? Good 'console.log'
     });
   }
 
   private getRoles() {
     this.userService.getRolesList().subscribe((data) => {
       this.roles = data;
-      console.log(data);
+      console.log(data); // ? Good 'console.log'
     });
   }
 
   saveUser() {
     this.userService.createUser(this.user).subscribe(
       (data) => {
-        console.log(data);
+        console.log(data); // ? Good 'console.log'
       },
-      (error) => console.log(error)
+      (error) => console.log(error) // ? Good 'console.log'
     );
   }
 
   onSubmit() {
     debugger;
-    var Test_roleId = (<HTMLInputElement>(
-      document.getElementById('roleEntities')
-    )).value;
-    var Alternative_userBirth = (<HTMLInputElement>(
-      document.getElementById('userBirth')
-    )).value;
-    this.user.userBirth = Alternative_userBirth;
-    console.log(this.user);
+    var roleId = (<HTMLInputElement>document.getElementById('roleId')).value;
+    var userBirth = (<HTMLInputElement>document.getElementById('userBirth'))
+      .value;
+    this.user.userBirth = userBirth;
+    console.log(this.user); // ? Good 'console.log'
     this.Form_User.setValue({
       userDni: this.user.userDni == undefined ? 0 : this.user.userDni,
       userEmail: this.user.userEmail == undefined ? '' : this.user.userEmail,
@@ -106,8 +103,8 @@ export class UserComponentComponent implements OnInit {
         this.user.userAddress == undefined ? '' : this.user.userAddress,
       userBirth: this.user.userBirth == '' ? '' : this.user.userBirth,
     });
-    console.log(this.Form_User.value);
-    if (Test_roleId == '0') {
+    console.log(this.Form_User.value); // ? Good 'console.log'
+    if (roleId == '0') {
       return;
     } else {
       if (this.Form_User.invalid) {
@@ -115,12 +112,12 @@ export class UserComponentComponent implements OnInit {
       } else {
         const Alternative_Role_Array: Role[] = [];
         for (let i = 0; i < this.roles.length; i++) {
-          if (this.Alternative_roleId == this.roles[i].roleId) {
+          if (this.roleId == this.roles[i].roleId) {
             Alternative_Role_Array.push(this.roles[i]);
           }
         }
         this.user.roleEntities = Alternative_Role_Array;
-        console.log(this.user);
+        console.log(this.user); // ? Good 'console.log'
         this.saveUser();
       }
     }

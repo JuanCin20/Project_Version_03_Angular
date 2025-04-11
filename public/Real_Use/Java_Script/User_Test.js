@@ -122,8 +122,8 @@ function Selected_Row_Function(data) {
 
 function Open_Modal_Form(data) {
   if (data == null) {
-    $("#roleEntities").removeClass("is-valid");
-    $("#roleEntities").removeClass("is-invalid");
+    $("#roleId").removeClass("is-valid");
+    $("#roleId").removeClass("is-invalid");
     $("#userDni").removeClass("is-valid");
     $("#userDni").removeClass("is-invalid");
     $("#userEmail").removeClass("is-valid");
@@ -141,7 +141,7 @@ function Open_Modal_Form(data) {
     $("#userBirth").removeClass("is-valid");
     $("#userBirth").removeClass("is-invalid");
     userId = 0;
-    $("#roleEntities").val(0);
+    $("#roleId").val(0);
     $("#userDni").val("");
     $("#userEmail").val("");
     $("#userPassword").val("");
@@ -154,8 +154,8 @@ function Open_Modal_Form(data) {
       .datepicker("setDate", "");
   } else {
     if (data != null) {
-      $("#roleEntities").removeClass("is-valid");
-      $("#roleEntities").removeClass("is-invalid");
+      $("#roleId").removeClass("is-valid");
+      $("#roleId").removeClass("is-invalid");
       $("#userDni").removeClass("is-valid");
       $("#userDni").removeClass("is-invalid");
       $("#userEmail").removeClass("is-valid");
@@ -173,7 +173,7 @@ function Open_Modal_Form(data) {
       $("#userBirth").removeClass("is-valid");
       $("#userBirth").removeClass("is-invalid");
       userId = data.userId;
-      $("#roleEntities").val(data.roleEntities[0].roleId);
+      $("#roleId").val(data.roleEntities[0].roleId);
       $("#userDni").val(data.userDni);
       $("#userEmail").val(data.userEmail);
       $("#userPassword").val(data.userPassword);
@@ -201,12 +201,12 @@ function Function_ComboBox() {
       $("<option>")
         .attr({ value: "0", disabled: "true", selected: "true" })
         .text("Select")
-        .appendTo("#roleEntities");
+        .appendTo("#roleId");
       $.each(data, function (index, item) {
         $("<option>")
           .attr({ value: item.roleId })
           .text(item.enumRole)
-          .appendTo("#roleEntities");
+          .appendTo("#roleId");
       });
     },
   });
@@ -272,7 +272,7 @@ jQuery.validator.addMethod("Valid_userBirth", function (value, element) {
 $(function () {
   $("#Form_User").validate({
     rules: {
-      roleEntities: {
+      roleId: {
         required: true,
       },
       userDni: {
@@ -323,8 +323,8 @@ $(function () {
       },
     },
     messages: {
-      roleEntities: {
-        required: "Required: roleEntities",
+      roleId: {
+        required: "Required: roleId",
       },
       userDni: {
         required: "Required: userDni",
@@ -395,6 +395,6 @@ $(function () {
 
 $.validator.setDefaults({
   submitHandler: function () {
-    console.log("Success!");
+    console.log("Success!"); // ? Good 'console.log'
   },
 });
