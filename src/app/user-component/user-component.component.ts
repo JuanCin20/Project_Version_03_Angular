@@ -16,6 +16,8 @@ export class UserComponentComponent implements OnInit {
   roleId: number;
   user: User = new User();
   Form_User: FormGroup;
+  characters: string =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   constructor(private userService: UserService) {}
 
   // constructor() {}
@@ -50,6 +52,17 @@ export class UserComponentComponent implements OnInit {
     );
   }
 
+  private generateUserPassword(length: number) {
+    let userPassword = '';
+    const charactersLength = this.characters.length;
+    for (let i = 0; i < length; i++) {
+      userPassword += this.characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+    }
+    return userPassword;
+  }
+
   public onSubmit() {
     // debugger; // TODO: Debugger Breakpoint
     var roleId = (<HTMLInputElement>document.getElementById('roleId')).value;
@@ -82,6 +95,7 @@ export class UserComponentComponent implements OnInit {
             Alternative_Role_Array.push(this.roles[i]);
           }
         }
+        this.user.userPassword = this.generateUserPassword(10);
         this.user.roleEntities = Alternative_Role_Array;
         console.log(this.user); // ? Good 'console.log'
         this.saveUser();

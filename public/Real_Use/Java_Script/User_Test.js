@@ -72,11 +72,21 @@ function Function_User_Table_02() {
           for (let i = 0; i < roleEntities.length; i++) {
             Result += roleEntities[i].enumRole + ", ";
           }
-          return (
-            '<span class="badge text-bg-primary">' +
-            Result.slice(0, -2) +
-            "</span>"
-          );
+          if (Result.slice(0, -2) == "Developer") {
+            return '<span class="badge text-bg-danger">Developer</span>';
+          } else {
+            if (Result.slice(0, -2) == "Administrator") {
+              return '<span class="badge text-bg-primary">Administrator</span>';
+            } else {
+              if (Result.slice(0, -2) == "Employee") {
+                return '<span class="badge text-bg-success">Employee</span>';
+              } else {
+                if (Result.slice(0, -2) == "Customer") {
+                  return '<span class="badge text-bg-warning">Customer</span>';
+                }
+              }
+            }
+          }
         },
       },
       { data: "userDni" },
