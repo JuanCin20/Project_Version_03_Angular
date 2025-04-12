@@ -33,56 +33,25 @@
           </button>
         </div>
       </div>
+      <div class="col-sm-2">
+        <div class="d-grid mb-2">
+          <button type="button" class="btn btn-primary" (click)="addRow()">
+            <i class="fa-brands fa-squarespace"></i>&nbsp;Test
+          </button>
+        </div>
+      </div>
     </div>
 
     <hr />
 
-    <table id="User_Table" class="display cell-border" style="width: 100%">
-      <thead>
-        <tr>
-          <th>ID:</th>
-          <th>Role:</th>
-          <th>DNI:</th>
-          <th>E-Mail:</th>
-          <th>Name:</th>
-          <th>Last Name:</th>
-          <th>Phone:</th>
-          <th>Address:</th>
-          <th>Birth:</th>
-          <th>State:</th>
-          <th>Register:</th>
-          <th>Operation:</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- <tr *ngFor="let user of users">
-          <td>{{ user.userId }}</td>
-          <td>
-            <label *ngFor="let role of user.roleEntities">{{
-              role.enumRole
-            }}</label>
-          </td>
-          <td>{{ user.userDni }}</td>
-          <td>{{ user.userEmail }}</td>
-          <td>{{ user.userName }}</td>
-          <td>{{ user.userLastName }}</td>
-          <td>{{ user.userPhone }}</td>
-          <td>{{ user.userAddress }}</td>
-          <td>{{ user.userBirth }}</td>
-          <td>{{ user.userState }}</td>
-          <td>{{ user.userRegister }}</td>
-          <td>
-            <div class="d-flex flex-row justify-content-center gap-2">
-              <button type="button" class="btn btn-primary">
-                <i class="fa-solid fa-pencil"></i></button
-              ><button type="button" class="btn btn-danger">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </div>
-          </td>
-        </tr> -->
-      </tbody>
-    </table>
+    <table
+      datatable
+      [dtOptions]="dtOptions"
+      [dtTrigger]="dtTrigger"
+      id="User_Table"
+      class="display cell-border"
+      style="width: 100%"
+    ></table>
   </div>
 </div>
 
@@ -109,7 +78,6 @@
         ></button>
       </div>
       <form
-        [formGroup]="Form_User"
         (ngSubmit)="onSubmit()"
         id="Form_User"
         class="needs-validation"
