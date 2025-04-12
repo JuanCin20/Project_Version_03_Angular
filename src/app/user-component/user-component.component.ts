@@ -1,15 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
+import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { User } from '../user';
 import { Role } from '../role';
 import { FormGroup } from '@angular/forms';
-import { Config } from 'datatables.net';
-import { Subject } from 'rxjs';
 import { UserService } from '../user-service.service';
-import { Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+declare var $: any;
 
 @Component({
   selector: 'app-user-component',
@@ -18,7 +15,6 @@ import { Validators } from '@angular/forms';
   templateUrl: './user-component.component.html',
 })
 export class UserComponentComponent implements OnInit {
-  @ViewChild(DataTableDirective, { static: false })
   users: User[];
   roles: Role[];
   roleId: number;
@@ -26,82 +22,11 @@ export class UserComponentComponent implements OnInit {
   Form_User: FormGroup;
   characters: string =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  dtElement: DataTableDirective;
-  dtOptions: Config = {};
-  dtTrigger: Subject<any> = new Subject<any>();
-  constructor(private userService: UserService, private renderer: Renderer2) {}
+  constructor(private userService: UserService) {}
 
   // constructor() {}
 
   ngOnInit(): void {
-    this.dtOptions = {
-      lengthMenu: [5, 10, 20, 50],
-    };
-    this.dtOptions = {
-      ajax: (dataTablesParameters: any, callback) => {
-        this.userService.getUsersList().subscribe((result) => {
-          callback({
-            data: result,
-          });
-        });
-      },
-      lengthMenu: [5, 10, 20, 50],
-      columns: [
-        { title: 'ID:', data: 'userId' },
-        {
-          title: 'Role:',
-          data: null,
-          render: (data: any, type: any, row: any) => {
-            var Result = '';
-            for (let i = 0; i < data.roleEntities.length; i++) {
-              Result += data.roleEntities[i].enumRole + ', ';
-            }
-            if (Result.slice(0, -2) == 'Developer') {
-              return `<span class="badge text-bg-danger">Developer</span>`;
-            }
-            if (Result.slice(0, -2) == 'Administrator') {
-              return `<span class="badge text-bg-primary">Administrator</span>`;
-            }
-            if (Result.slice(0, -2) == 'Employee') {
-              return `<span class="badge text-bg-success">Employee</span>`;
-            }
-            if (Result.slice(0, -2) == 'Customer') {
-              return `<span class="badge text-bg-warning">Customer</span>`;
-            }
-            return null;
-          },
-        },
-        { title: 'DNI:', data: 'userDni' },
-        { title: 'E-Mail:', data: 'userEmail' },
-        { title: 'Name:', data: 'userName' },
-        { title: 'Last Name:', data: 'userLastName' },
-        { title: 'Phone:', data: 'userPhone' },
-        { title: 'Address:', data: 'userAddress' },
-        { title: 'Birth:', data: 'userBirth' },
-        {
-          title: 'State:',
-          data: null,
-          render: (data: any, type: any, row: any) => {
-            if (data.userState) {
-              return `<span class="badge text-bg-success">Active</span>`;
-            } else {
-              return `<span class="badge text-bg-danger">Disabled</span>`;
-            }
-          },
-        },
-        { title: 'Register:', data: 'userRegister' },
-        {
-          title: 'Operation',
-          data: null,
-          orderable: false,
-          searchable: false,
-          render: (data: any, type: any, row: any) => {
-            return `<div class="d-flex flex-row justify-content-start gap-2"><button type="button" class="btn btn-primary Edit_Button"><i class="fa-solid fa-pencil"></i></button><button type="button" class="btn btn-danger Delete_Button"><i class="fa-solid fa-trash"></i></button></div>`;
-          },
-          className: 'operation-column',
-        },
-      ],
-    };
     this.Form_User = new FormGroup({
       userDni: new FormControl('', Validators.required),
       userEmail: new FormControl('', Validators.required),
@@ -122,48 +47,31 @@ export class UserComponentComponent implements OnInit {
     });
   }
 
-  private ngAfterViewInit(): void {
-    this.dtTrigger.next(null);
-  }
-
-  private ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
-
   public addRow(): void {
     debugger;
-    this.user = {
-      userId: 100,
-      roleEntities: [
-        {
-          roleId: 1,
-          enumRole: 'Developer',
-          roleRegister: '06/04/2025',
-        },
-      ],
-      userDni: 100,
-      userEmail: 'AAA',
-      userPassword: 'AAA',
-      userName: 'AAA',
-      userLastName: 'AAA',
-      userPhone: 100,
-      userAddress: 'AAA',
-      userBirth: 'AAA',
-      userState: true,
-      userRegister: 'AAA',
-      userNotAccountExpired: true,
-      userNotAccountBlocked: true,
-      userCredentialNotExpired: true,
-    };
-    this.users.push(this.user);
-    this.rerender();
-  }
-
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: any) => {
-      dtInstance.destroy();
-      this.dtTrigger.next(null);
-    });
+    var User_Table = $('#User_Table').DataTable();
+    User_Table.row
+      .add({
+        userId: 50,
+        roleEntities: [
+          {
+            roleId: 1,
+            enumRole: 'Developer',
+            roleRegister: '06/04/2025',
+          },
+        ],
+        userDni: 73216070,
+        userEmail: 'JuanCin080604@gmail.com',
+        userPassword: 'JU@NCIn080604',
+        userName: 'Juan Carlos',
+        userLastName: 'Aronés Peña',
+        userPhone: 959748008,
+        userAddress: 'Calle los Milanos 161 Santa Anita',
+        userBirth: '08/06/2004',
+        userState: true,
+        userRegister: '12/04/2025',
+      })
+      .draw();
   }
 
   private saveUser(): void {

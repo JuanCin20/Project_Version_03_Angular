@@ -1,6 +1,6 @@
 $(function () {
-  // Function_User_Table_01();
-  // Function_User_Table_02();
+  Function_User_Table_01();
+  Function_User_Table_02();
   // Function_ComboBox(); // * Alternative
   $("#User_Table tbody").on("click", ".Edit_Button", function () {
     // var Selected_Row = $(this).closest("tr") // ! Not Responsive
