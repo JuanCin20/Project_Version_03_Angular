@@ -12,9 +12,9 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {}
 
-  /* public getUsersList(): Observable<User[]> {
+  public getUsersList(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.baseURL}` + '/all');
-  } */
+  }
 
   public getRolesList(): Observable<Role[]> {
     return this.httpClient.get<Role[]>(`${this.baseURL}` + '/allRoleEntities');

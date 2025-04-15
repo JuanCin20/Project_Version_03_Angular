@@ -15,7 +15,7 @@
           <button
             type="button"
             class="btn btn-success"
-            onclick="Open_Modal_Form(null)"
+            (click)="Open_Modal_Form(null)"
           >
             <i class="fa-solid fa-xmark"></i>&nbsp;Insert User
           </button>
@@ -35,7 +35,7 @@
       </div>
       <div class="col-sm-2">
         <div class="d-grid mb-2">
-          <button type="button" class="btn btn-primary Test" (click)="addRow()">
+          <button type="button" class="btn btn-primary Test" (click)="Test()">
             <i class="fa-brands fa-squarespace"></i>&nbsp;Test
           </button>
         </div>
@@ -45,10 +45,55 @@
     <hr />
 
     <table
-      id="User_Table"
+      id="User_Table_Start"
       class="display cell-border"
       style="width: 100%"
-    ></table>
+    >
+      <thead>
+        <tr>
+          <th>ID:</th>
+          <th>Role:</th>
+          <th>DNI:</th>
+          <th>E-Mail</th>
+          <th>Name:</th>
+          <th>Last Name:</th>
+          <th>Phone:</th>
+          <th>Address:</th>
+          <th>Birth:</th>
+          <th>State:</th>
+          <th>Register:</th>
+          <th>Operation:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr *ngFor="let user of usersActive">
+          <td>{{ user.userId }}</td>
+          <td>
+            <label *ngFor="let role of user.roleEntities">{{
+              role.enumRole
+            }}</label>
+          </td>
+          <td>{{ user.userDni }}</td>
+          <td>{{ user.userEmail }}</td>
+          <td>{{ user.userName }}</td>
+          <td>{{ user.userLastName }}</td>
+          <td>{{ user.userPhone }}</td>
+          <td>{{ user.userAddress }}</td>
+          <td>{{ user.userBirth }}</td>
+          <td>{{ user.userState }}</td>
+          <td>{{ user.userRegister }}</td>
+          <td>
+            <div class="d-flex flex-row justify-content-start gap-2">
+              <button type="button" class="btn btn-primary Edit_Button">
+                <i class="fa-solid fa-pencil"></i></button
+              ><button type="button" class="btn btn-danger Delete_Button">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr> -->
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -76,7 +121,7 @@
       </div>
       <form
         (ngSubmit)="onSubmit()"
-        id="Form_User"
+        id="User_Form"
         class="needs-validation"
         novalidate
       >
@@ -86,19 +131,7 @@
               <label for="roleEntities" class="form-label"
                 ><i class="fa-solid fa-square-minus"></i>&nbsp;Role:</label
               >
-              <!-- <select
-                class="form-select"
-                id="roleEntities"
-                name="roleEntities"
-                aria-label="Default select example"
-              ></select> -->
-              <select
-                class="form-select"
-                id="roleId"
-                [(ngModel)]="roleId"
-                name="roleId"
-                [ngModelOptions]="{ standalone: true }"
-              >
+              <select class="form-select" id="roleId" name="roleId">
                 <option [disabled]="true" [selected]="true" value="0">
                   Select
                 </option>
@@ -106,6 +139,12 @@
                   {{ role.enumRole }}
                 </option>
               </select>
+              <!-- <select
+                class="form-select"
+                id="roleId"
+                name="roleId"
+                aria-label="Default select example"
+              ></select> -->
             </div>
             <div class="col-sm-6">
               <label for="userDni" class="form-label"
@@ -119,7 +158,6 @@
                 name="userDni"
                 placeholder="DNI"
                 autocomplete="off"
-                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-12">
@@ -134,7 +172,6 @@
                 name="userEmail"
                 placeholder="E-Mail"
                 autocomplete="off"
-                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-6">
@@ -149,7 +186,6 @@
                 name="userName"
                 placeholder="Name"
                 autocomplete="off"
-                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-6">
@@ -164,7 +200,6 @@
                 name="userLastName"
                 placeholder="Last Name"
                 autocomplete="off"
-                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-6">
@@ -179,7 +214,6 @@
                 name="userPhone"
                 placeholder="Phone"
                 autocomplete="off"
-                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-6">
@@ -194,7 +228,6 @@
                 name="userAddress"
                 placeholder="Address"
                 autocomplete="off"
-                [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="col-sm-12">
@@ -209,7 +242,6 @@
                 name="userBirth"
                 placeholder="Birth"
                 autocomplete="off"
-                [ngModelOptions]="{ standalone: true }"
               />
             </div>
           </div>
@@ -225,6 +257,87 @@
           <button type="submit" class="btn btn-primary">Confirm</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Vertically Centered Modal -->
+<div
+  class="modal fade"
+  id="Form_02"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div
+    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+  >
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleted Users</h1>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table
+          id="User_Table_Final"
+          class="display cell-border"
+          style="width: 100%"
+        >
+          <thead>
+            <tr>
+              <th>ID:</th>
+              <th>Role:</th>
+              <th>DNI:</th>
+              <th>E-Mail</th>
+              <th>Name:</th>
+              <th>Last Name:</th>
+              <th>Phone:</th>
+              <th>Address:</th>
+              <th>Birth:</th>
+              <th>State:</th>
+              <th>Register:</th>
+              <th>Operation:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let user of usersDisabled">
+              <td>{{ user.userId }}</td>
+              <td>
+                <label *ngFor="let role of user.roleEntities">{{
+                  role.enumRole
+                }}</label>
+              </td>
+              <td>{{ user.userDni }}</td>
+              <td>{{ user.userEmail }}</td>
+              <td>{{ user.userName }}</td>
+              <td>{{ user.userLastName }}</td>
+              <td>{{ user.userPhone }}</td>
+              <td>{{ user.userAddress }}</td>
+              <td>{{ user.userBirth }}</td>
+              <td>{{ user.userState }}</td>
+              <td>{{ user.userRegister }}</td>
+              <td>
+                <div class="d-flex flex-row justify-content-start">
+                  <button type="button" class="btn btn-warning Reset_Button">
+                    <i class="fa-solid fa-trash-can-arrow-up"></i>
+                  </button>
+                </div>
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
     </div>
   </div>
 </div>
