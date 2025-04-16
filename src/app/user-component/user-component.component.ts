@@ -9,6 +9,8 @@ var User_Table_Start: any = null;
 var User_Table_Final: any = null;
 var userId: number = 0;
 import Swal from 'sweetalert2';
+var usersActive: Object[] = [];
+var usersDisabled: Object[] = [];
 
 @Component({
   selector: 'app-user-component',
@@ -20,8 +22,6 @@ export class UserComponentComponent implements OnInit {
   Url_01: string = 'http://localhost:8080/api/rest/user/all';
   // Url_02: string = 'http://localhost:8080/api/rest/user/allRoleEntities'; // * Alternative
   users: User[];
-  usersActive: User[] = [];
-  usersDisabled: User[] = [];
   roles: Role[];
   user: User = new User();
   characters: string =
@@ -39,24 +39,155 @@ export class UserComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.Function_User_Table(); // * Alternative
-    this.Function_User_Table_Start_01();
-    this.Function_User_Table_Start_02();
+    this.Function_User_Table();
+    // this.Function_User_Table_Start_01(); // * Alternative
+    // this.Function_User_Table_Start_02(); // * Alternative
     this.Function_ComboBox_01();
     // this.Function_ComboBox_02(); // * Alternative
     this.Edit_Delete_Button();
     this.jQuery_Validator();
   }
 
-  /* private Function_User_Table(): void {
+  private Function_User_Table(): void {
     this.userService.getUsersList().subscribe((data) => {
       this.users = data;
-      debugger; // TODO: Debugger Breakpoint
-      console.log(data); // ? Good 'console.log'
-    });
-  } */
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].userState == true) {
+          usersActive.push([
+            this.users[i].userId,
+            this.users[i].roleEntities[0].enumRole,
+            this.users[i].userDni,
+            this.users[i].userEmail,
+            this.users[i].userName,
+            this.users[i].userLastName,
+            this.users[i].userPhone,
+            this.users[i].userAddress,
+            this.users[i].userBirth,
+            this.users[i].userState,
+            this.users[i].userRegister,
+          ]);
+        } else {
+          if (this.users[i].userState == false) {
+            usersDisabled.push([
+              this.users[i].userId,
+              this.users[i].roleEntities[0].enumRole,
+              this.users[i].userDni,
+              this.users[i].userEmail,
+              this.users[i].userName,
+              this.users[i].userLastName,
+              this.users[i].userPhone,
+              this.users[i].userAddress,
+              this.users[i].userBirth,
+              this.users[i].userState,
+              this.users[i].userRegister,
+            ]);
+          }
+        }
+      }
 
-  private Function_User_Table_Start_01(): void {
+      User_Table_Start = $('#User_Table_Start').DataTable({
+        responsive: true,
+        ordering: false,
+        columns: [
+          { title: 'ID:' },
+          {
+            title: 'Role:',
+            render: function (usersActive: any) {
+              if (usersActive == 'Developer') {
+                return '<span class="badge text-bg-danger">Developer</span>';
+              } else {
+                if (usersActive == 'Administrator') {
+                  return '<span class="badge text-bg-primary">Administrator</span>';
+                } else {
+                  if (usersActive == 'Employee') {
+                    return '<span class="badge text-bg-success">Employee</span>';
+                  } else {
+                    if (usersActive == 'Customer') {
+                      return '<span class="badge text-bg-warning">Customer</span>';
+                    }
+                  }
+                }
+              }
+              return '<span class="badge text-bg-dark">Error</span>';
+            },
+          },
+          { title: 'DNI:' },
+          { title: 'E-Mail:' },
+          { title: 'Name:' },
+          { title: 'Last Name:' },
+          { title: 'Phone:' },
+          { title: 'Address:' },
+          { title: 'Birth:' },
+          {
+            title: 'State:',
+            render: function (usersActive: any) {
+              return '<span class="badge text-bg-success">Active</span>';
+            },
+          },
+          { title: 'Register:' },
+          {
+            defaultContent:
+              '<div class="d-flex flex-row justify-content-start gap-2"><button type="button" class="btn btn-primary Edit_Button"><i class="fa-solid fa-pencil"></i></button><button type="button" class="btn btn-danger Delete_Button"><i class="fa-solid fa-trash"></i></button></div>',
+            orderable: false,
+            searchable: false,
+          },
+        ],
+        data: usersActive,
+      });
+
+      User_Table_Final = $('#User_Table_Final').DataTable({
+        responsive: true,
+        ordering: false,
+        columns: [
+          { title: 'ID:' },
+          {
+            title: 'Role:',
+            render: function (usersActive: any) {
+              if (usersActive == 'Developer') {
+                return '<span class="badge text-bg-danger">Developer</span>';
+              } else {
+                if (usersActive == 'Administrator') {
+                  return '<span class="badge text-bg-primary">Administrator</span>';
+                } else {
+                  if (usersActive == 'Employee') {
+                    return '<span class="badge text-bg-success">Employee</span>';
+                  } else {
+                    if (usersActive == 'Customer') {
+                      return '<span class="badge text-bg-warning">Customer</span>';
+                    }
+                  }
+                }
+              }
+              return '<span class="badge text-bg-dark">Error</span>';
+            },
+          },
+          { title: 'DNI:' },
+          { title: 'E-Mail:' },
+          { title: 'Name:' },
+          { title: 'Last Name:' },
+          { title: 'Phone:' },
+          { title: 'Address:' },
+          { title: 'Birth:' },
+          {
+            title: 'State:',
+            render: function (usersActive: any) {
+              return '<span class="badge text-bg-danger">Disabled</span>';
+            },
+          },
+          { title: 'Register:' },
+          {
+            defaultContent:
+              '<div class="d-flex flex-row justify-content-start"><button type="button" class="btn btn-warning Reset_Button"><i class="fa-solid fa-trash-can-arrow-up"></i></button></div>',
+            orderable: false,
+            searchable: false,
+          },
+        ],
+        data: usersDisabled,
+      });
+    });
+  }
+
+  /* private Function_User_Table_Start_01(): void {
     $.ajax({
       url: this.Url_01,
       type: 'GET',
@@ -67,9 +198,9 @@ export class UserComponentComponent implements OnInit {
         console.log(data); // ? Good 'console.log'
       },
     });
-  }
+  } */
 
-  private Function_User_Table_Start_02(): void {
+  /* private Function_User_Table_Start_02(): void {
     User_Table_Start = $('#User_Table_Start').DataTable({
       responsive: true,
       ordering: false,
@@ -129,11 +260,10 @@ export class UserComponentComponent implements OnInit {
             '<div class="d-flex flex-row justify-content-start gap-2"><button type="button" class="btn btn-primary Edit_Button"><i class="fa-solid fa-pencil"></i></button><button type="button" class="btn btn-danger Delete_Button"><i class="fa-solid fa-trash"></i></button></div>',
           orderable: false,
           searchable: false,
-          width: '90px',
         },
       ],
     });
-  }
+  } */
 
   private Function_ComboBox_01(): void {
     this.userService.getRolesList().subscribe((data) => {
@@ -168,7 +298,7 @@ export class UserComponentComponent implements OnInit {
   private Edit_Delete_Button() {
     $(function () {
       function Open_Modal_Form(data: any): void {
-        if (data == null) {
+        if (data != null) {
           $('#roleId').removeClass('is-valid');
           $('#roleId').removeClass('is-invalid');
           $('#userDni').removeClass('is-valid');
@@ -185,47 +315,32 @@ export class UserComponentComponent implements OnInit {
           $('#userAddress').removeClass('is-invalid');
           $('#userBirth').removeClass('is-valid');
           $('#userBirth').removeClass('is-invalid');
-          userId = 0;
-          $('#roleId').val(0);
-          $('#userDni').val('');
-          $('#userEmail').val('');
-          $('#userName').val('');
-          $('#userLastName').val('');
-          $('#userPhone').val('');
-          $('#userAddress').val('');
+          userId = data[0];
+          $('#roleId option:contains(' + data[1] + ')').attr(
+            'selected',
+            'selected'
+          );
+          $('#userDni').val(data[2]);
+          $('#userEmail').val(data[3]);
+          $('#userName').val(data[4]);
+          $('#userLastName').val(data[5]);
+          $('#userPhone').val(data[6]);
+          $('#userAddress').val(data[7]);
           $('#userBirth')
             .datepicker({ dateFormat: 'dd/mm/yy', maxDate: '+0D' })
-            .datepicker('setDate', '');
-        } else {
-          if (data != null) {
-            $('#roleId').removeClass('is-valid');
-            $('#roleId').removeClass('is-invalid');
-            $('#userDni').removeClass('is-valid');
-            $('#userDni').removeClass('is-invalid');
-            $('#userEmail').removeClass('is-valid');
-            $('#userEmail').removeClass('is-invalid');
-            $('#userName').removeClass('is-valid');
-            $('#userName').removeClass('is-invalid');
-            $('#userLastName').removeClass('is-valid');
-            $('#userLastName').removeClass('is-invalid');
-            $('#userPhone').removeClass('is-valid');
-            $('#userPhone').removeClass('is-invalid');
-            $('#userAddress').removeClass('is-valid');
-            $('#userAddress').removeClass('is-invalid');
-            $('#userBirth').removeClass('is-valid');
-            $('#userBirth').removeClass('is-invalid');
-            userId = data.userId;
-            $('#roleId').val(data.roleEntities[0].roleId);
-            $('#userDni').val(data.userDni);
-            $('#userEmail').val(data.userEmail);
-            $('#userName').val(data.userName);
-            $('#userLastName').val(data.userLastName);
-            $('#userPhone').val(data.userPhone);
-            $('#userAddress').val(data.userAddress);
-            $('#userBirth')
-              .datepicker({ dateFormat: 'dd/mm/yy', maxDate: '+0D' })
-              .datepicker('setDate', data.userBirth);
-          }
+            .datepicker('setDate', data[8]);
+
+          /* userId = data.userId;
+          $('#roleId').val(data.roleEntities[0].roleId);
+          $('#userDni').val(data.userDni);
+          $('#userEmail').val(data.userEmail);
+          $('#userName').val(data.userName);
+          $('#userLastName').val(data.userLastName);
+          $('#userPhone').val(data.userPhone);
+          $('#userAddress').val(data.userAddress);
+          $('#userBirth')
+            .datepicker({ dateFormat: 'dd/mm/yy', maxDate: '+0D' })
+            .datepicker('setDate', data.userBirth); */
         }
         $('#Form_01').modal('show');
       }
@@ -241,7 +356,8 @@ export class UserComponentComponent implements OnInit {
         return Selected_Row;
       }
 
-      $('#User_Table_Start tbody').on('click', '.Edit_Button', function () {
+      // $('#User_Table_Start tbody').on('click', '.Edit_Button', function () {
+      $('#User_Table_Start').on('click', '.Edit_Button', function () {
         // var Selected_Row = $(this).closest("tr") // ! Not Responsive
         var Selected_Row = Selected_Row_Function(this);
         var data = User_Table_Start.row(Selected_Row).data();
@@ -249,7 +365,8 @@ export class UserComponentComponent implements OnInit {
         Open_Modal_Form(data);
       });
 
-      $('#User_Table_Start tbody').on('click', '.Delete_Button', function () {
+      // $('#User_Table_Start tbody').on('click', '.Delete_Button', function () {
+      $('#User_Table_Start ').on('click', '.Delete_Button', function () {
         var Selected_Row = Selected_Row_Function(this);
         var data = User_Table_Start.row(Selected_Row).data();
         console.log(data); // ? Good 'console.log'
@@ -305,36 +422,6 @@ export class UserComponentComponent implements OnInit {
       $('#userBirth')
         .datepicker({ dateFormat: 'dd/mm/yy', maxDate: '+0D' })
         .datepicker('setDate', '');
-    } else {
-      if (data != null) {
-        $('#roleId').removeClass('is-valid');
-        $('#roleId').removeClass('is-invalid');
-        $('#userDni').removeClass('is-valid');
-        $('#userDni').removeClass('is-invalid');
-        $('#userEmail').removeClass('is-valid');
-        $('#userEmail').removeClass('is-invalid');
-        $('#userName').removeClass('is-valid');
-        $('#userName').removeClass('is-invalid');
-        $('#userLastName').removeClass('is-valid');
-        $('#userLastName').removeClass('is-invalid');
-        $('#userPhone').removeClass('is-valid');
-        $('#userPhone').removeClass('is-invalid');
-        $('#userAddress').removeClass('is-valid');
-        $('#userAddress').removeClass('is-invalid');
-        $('#userBirth').removeClass('is-valid');
-        $('#userBirth').removeClass('is-invalid');
-        userId = data.userId;
-        $('#roleId').val(data.roleEntities[0].roleId);
-        $('#userDni').val(data.userDni);
-        $('#userEmail').val(data.userEmail);
-        $('#userName').val(data.userName);
-        $('#userLastName').val(data.userLastName);
-        $('#userPhone').val(data.userPhone);
-        $('#userAddress').val(data.userAddress);
-        $('#userBirth')
-          .datepicker({ dateFormat: 'dd/mm/yy', maxDate: '+0D' })
-          .datepicker('setDate', data.userBirth);
-      }
     }
     $('#Form_01').modal('show');
   }
@@ -565,7 +652,6 @@ export class UserComponentComponent implements OnInit {
   }
 
   private saveUser(): void {
-    // debugger; // TODO: Debugger Breakpoint
     this.userService.createUser(this.user).subscribe(
       (data) => {
         // debugger; // TODO: Debugger Breakpoint
