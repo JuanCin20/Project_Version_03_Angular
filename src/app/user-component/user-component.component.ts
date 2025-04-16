@@ -427,6 +427,40 @@ export class UserComponentComponent implements OnInit {
   }
 
   private jQuery_Validator(): void {
+    $(function () {
+      $('#userDni').on('keyup', function (event: any) {
+        if (event.target.value < 10000000) {
+          event.target.setAttribute(
+            'title',
+            'The DNI Value must be Greater than 10000000.'
+          );
+        } else {
+          if (event.target.value > 99999999) {
+            event.target.setAttribute(
+              'title',
+              'The DNI Value must be Less than 99999999.'
+            );
+          }
+        }
+      });
+
+      $('#userPhone').on('keyup', function (event: any) {
+        if (event.target.value < 900000000) {
+          event.target.setAttribute(
+            'title',
+            'The Phone Value must be Greater than 900000000.'
+          );
+        } else {
+          if (event.target.value > 999999999) {
+            event.target.setAttribute(
+              'title',
+              'The Phone Value must be Less than 999999999.'
+            );
+          }
+        }
+      });
+    });
+
     $.validator.addMethod('Valid_userDni', function (value: any, element: any) {
       return this.optional(element) || /^[0-9]+$/.test(value);
     });
@@ -519,6 +553,7 @@ export class UserComponentComponent implements OnInit {
         userEmail: {
           required: true,
           Valid_userEmail: true,
+          minlength: 10,
           maxlength: 50,
         },
         /* userPassword: {
@@ -529,11 +564,13 @@ export class UserComponentComponent implements OnInit {
         userName: {
           required: true,
           Valid_userName: true,
+          minlength: 5,
           maxlength: 50,
         },
         userLastName: {
           required: true,
           Valid_userLastName: true,
+          minlength: 5,
           maxlength: 50,
         },
         userPhone: {
@@ -547,63 +584,71 @@ export class UserComponentComponent implements OnInit {
         userAddress: {
           required: true,
           Valid_userAddress: true,
+          minlength: 5,
           maxlength: 50,
         },
         userBirth: {
           required: true,
           Valid_userBirth: true,
+          minlength: 10,
           maxlength: 10,
         },
       },
       messages: {
         roleId: {
-          required: 'Required: roleId',
+          required: 'Select the Role of the User.',
         },
         userDni: {
-          required: 'Required: userDni',
-          number: 'Number: userDni',
-          Valid_userDni: 'Valid: Valid_userDni',
-          digits: 'Digits: userDni',
-          minlength: 'Min Length: userDni',
-          maxlength: 'Max Length: userDni',
+          required: 'Provide the DNI of the User.',
+          number: 'The DNI must be a Number.',
+          Valid_userDni: 'Provide a Valid DNI.',
+          digits: 'Provide the Digits from the DNI.',
+          minlength: 'The DNI must Contain at Least 8 Digits.',
+          maxlength: 'The DNI must Contain a Maximum of 8 Digits.',
         },
         userEmail: {
-          required: 'Required: userEmail',
-          Valid_userEmail: 'Valid: userEmail',
-          maxlength: 'Max Length: userEmail',
+          required: 'Provide the E-Mail of the User.',
+          Valid_userEmail: 'Provide a Valid E-Mail.',
+          minlength: 'The E-Mail must Contain at Least 10 Digits.',
+          maxlength: 'The E-Mail must Contain a Maximum of 50 Digits.',
         },
         /* userPassword: {
-          required: "Required: userPassword",
-          Valid_userPassword: "Valid: userPassword",
-          maxlength: "Max Length: userPassword",
+          required: 'Provide the Password of the User.',
+          Valid_userPassword:
+            'Provide a Valid Password - The Password must Contain a Minimum of 8 Characters and at Least one Number, one Special Character, one Lowercase Letter, and one Uppercase Letter.',
+          maxlength: 'The Password must Contain a Maximum of 50 Digits.',
         }, */
         userName: {
-          required: 'Required: userName',
-          Valid_userName: 'Valid: userName',
-          maxlength: 'Max Length: userName',
+          required: 'Provide the Name of the User.',
+          Valid_userName: 'Provide a Valid Name.',
+          minlength: 'The Name must Contain at Least 5 Digits.',
+          maxlength: 'The Name must Contain a Maximum of 50 Digits.',
         },
         userLastName: {
-          required: 'Required: userLastName',
-          Valid_userLastName: 'Valid: userLastName',
-          maxlength: 'Max Length: userLastName',
+          required: 'Provide the Last Name of the User.',
+          Valid_userLastName: 'Provide a Valid Last Name.',
+          minlength: 'The Last Name must Contain at Least 5 Digits.',
+          maxlength: 'The Last Name must Contain a Maximum of 50 Digits.',
         },
         userPhone: {
-          required: 'Required: userPhone',
-          number: 'Number: userPhone',
-          Valid_userPhone: 'Valid: userPhone',
-          digits: 'Digits: userPhone',
-          minlength: 'Min Length: userPhone',
-          maxlength: 'Max Length: userPhone',
+          required: 'Provide the Phone of the User.',
+          number: 'The Phone must be a Number.',
+          Valid_userPhone: 'Provide a Valid Phone.',
+          digits: 'Provide the Digits from the Phone.',
+          minlength: 'The Phone must Contain at Least 9 Digits.',
+          maxlength: 'The Phone must Contain a Maximum of 9 Digits.',
         },
         userAddress: {
-          required: 'Required: userAddress',
-          Valid_userAddress: 'Valid: userAddress',
-          maxlength: 'Max Length: userAddress',
+          required: 'Provide the Address of the User.',
+          Valid_userAddress: 'Provide a Valid Address.',
+          minlength: 'The Address must Contain at Least 5 Digits.',
+          maxlength: 'The Address must Contain a Maximum of 50 Digits.',
         },
         userBirth: {
-          required: 'Required: userBirth',
-          Valid_userBirth: 'Valid: userBirth',
-          maxlength: 'Max Length: userBirth',
+          required: 'Provide the Birth Date of the User.',
+          Valid_userBirth: 'Provide a Valid Birth Date.',
+          minlength: 'The Birth Date must Contain at Least 10 Digits.',
+          maxlength: 'The Birth Date must Contain a Maximum of 10 Digits.',
         },
       },
       errorElement: 'em',
@@ -651,10 +696,49 @@ export class UserComponentComponent implements OnInit {
     return userPassword;
   }
 
+  private sequentialSearchUserDni(userDni: string): boolean {
+    if (this.users.length != 0) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].userDni.toString() == userDni) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  private sequentialSearchUserEmail(userEmail: string): boolean {
+    if (this.users.length != 0) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].userEmail.toString() == userEmail) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  private sequentialSearchUserPhone(userPhone: string): boolean {
+    if (this.users.length != 0) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].userPhone.toString() == userPhone) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   private saveUser(): void {
     this.userService.createUser(this.user).subscribe(
       (data) => {
-        // debugger; // TODO: Debugger Breakpoint
+        debugger; // TODO: Debugger Breakpoint
         console.log(data); // ? Good 'console.log'
         var user = Object.assign(new User(), data);
         console.log(user); // ? Good 'console.log'
@@ -743,7 +827,43 @@ export class UserComponentComponent implements OnInit {
       console.log(this.user); // ? Good 'console.log'
       if (userId == 0) {
         $('.modal-body').LoadingOverlay('hide');
-        this.saveUser();
+        debugger; // TODO: Debugger Breakpoint
+        if (this.sequentialSearchUserDni(this.user.userDni.toString())) {
+          Swal.fire({
+            title: 'Warning',
+            text: 'The DNI is Already Registered in the Database.',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel',
+            cancelButtonColor: '#FF0000',
+          });
+        } else {
+          if (this.sequentialSearchUserEmail(this.user.userEmail)) {
+            Swal.fire({
+              title: 'Warning',
+              text: 'The E-Mail is Already Registered in the Database.',
+              icon: 'warning',
+              showCancelButton: true,
+              cancelButtonText: 'Cancel',
+              cancelButtonColor: '#FF0000',
+            });
+          } else {
+            if (
+              this.sequentialSearchUserPhone(this.user.userPhone.toString())
+            ) {
+              Swal.fire({
+                title: 'Warning',
+                text: 'The Phone is Already Registered in the Database.',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                cancelButtonColor: '#FF0000',
+              });
+            } else {
+              this.saveUser();
+            }
+          }
+        }
       } else {
         if (userId != 0) {
           alert("You're Editing"); // ! Alert
