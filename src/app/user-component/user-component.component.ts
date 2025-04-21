@@ -696,17 +696,15 @@ export class UserComponentComponent implements OnInit {
     return userPassword;
   }
 
-  private sequentialSearchUserDni(userDni: string): boolean {
+  private sequentialSearchUserDni(userDni: number): boolean {
     if (this.users.length != 0) {
       for (let i = 0; i < this.users.length; i++) {
-        if (this.users[i].userDni.toString() == userDni) {
+        if (this.users[i].userDni == userDni) {
           return true;
-        } else {
-          return false;
         }
       }
     }
-    return true;
+    return false;
   }
 
   private sequentialSearchUserEmail(userEmail: string): boolean {
@@ -714,31 +712,27 @@ export class UserComponentComponent implements OnInit {
       for (let i = 0; i < this.users.length; i++) {
         if (this.users[i].userEmail.toString() == userEmail) {
           return true;
-        } else {
-          return false;
         }
       }
     }
-    return true;
+    return false;
   }
 
-  private sequentialSearchUserPhone(userPhone: string): boolean {
+  private sequentialSearchUserPhone(userPhone: number): boolean {
     if (this.users.length != 0) {
       for (let i = 0; i < this.users.length; i++) {
-        if (this.users[i].userPhone.toString() == userPhone) {
+        if (this.users[i].userPhone == userPhone) {
           return true;
-        } else {
-          return false;
         }
       }
     }
-    return true;
+    return false;
   }
 
   private saveUser(): void {
     this.userService.createUser(this.user).subscribe(
       (data) => {
-        debugger; // TODO: Debugger Breakpoint
+        // debugger; // TODO: Debugger Breakpoint
         console.log(data); // ? Good 'console.log'
         var user = Object.assign(new User(), data);
         console.log(user); // ? Good 'console.log'
@@ -827,8 +821,8 @@ export class UserComponentComponent implements OnInit {
       console.log(this.user); // ? Good 'console.log'
       if (userId == 0) {
         $('.modal-body').LoadingOverlay('hide');
-        debugger; // TODO: Debugger Breakpoint
-        if (this.sequentialSearchUserDni(this.user.userDni.toString())) {
+        // debugger; // TODO: Debugger Breakpoint
+        if (this.sequentialSearchUserDni(this.user.userDni)) {
           Swal.fire({
             title: 'Warning',
             text: 'The DNI is Already Registered in the Database.',
@@ -848,9 +842,7 @@ export class UserComponentComponent implements OnInit {
               cancelButtonColor: '#FF0000',
             });
           } else {
-            if (
-              this.sequentialSearchUserPhone(this.user.userPhone.toString())
-            ) {
+            if (this.sequentialSearchUserPhone(this.user.userPhone)) {
               Swal.fire({
                 title: 'Warning',
                 text: 'The Phone is Already Registered in the Database.',
